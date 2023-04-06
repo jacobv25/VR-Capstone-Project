@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Assets/BNG Framework/Scenes/XR Demo.unity
+    guid: a1360534006d3f845bc79b46b93cfec5
+  - enabled: 0
+    path: Assets/BNG Framework/Scenes/Scene Transitioning.unity
+    guid: 9d7c9629abf9c99449e358b0938b47d0
+  - enabled: 0
+    path: Assets/BNG Framework/Scenes/Physics Hands.unity
+    guid: 34a4579517c578e4080d0a6ef2c96294
+  - enabled: 0
+    path: Assets/BNG Framework/Scenes/Rigidbody Player.unity
+    guid: 57fc97c5771a777449aa8bd02514df22
+  - enabled: 0
+    path: Assets/BNG Framework/Scenes/Vehicle Example.unity
+    guid: d96233ee44d985d4fb8dc23a907c06eb
+  - enabled: 0
+    path: Assets/BNG Framework/Scenes/Quest Demo.unity
+    guid: eac0312c32df12949a47d07747a9d1cd
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 03d9cdad982379a4795f3dae66be350b
+  - enabled: 1
+    path: Assets/Scenes/Egyptian Museum.unity
+    guid: a7e27e5aca4e3f04abc3d68e8c7dbc21
+  - enabled: 1
+    path: Assets/Scenes/Painting Switch Room.unity
+    guid: 7a810d53cecb965429383ed11f7b5e2e
+  - enabled: 1
+    path: Assets/Scenes/Enter Painting Room.unity
+    guid: 50604a91f8205234a905f3869706659a
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ab24cd1f6a617014c84aa816a63c213f,
+      type: 2}
+    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: ecc7e4f5c9a01a54590be452f90030b3,
+      type: 2}
+    WebXR.Settings: {fileID: 11400000, guid: fe9659bb224bb054bb1dbca065d1d318, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 7c0d65f8139523c47a3ac0b1587ccdf6,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 36500ae0ebfc8534eaa2dad310d92727,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 817a51e7402e16a459ecbeecfd447e54,
+      type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 2ae0a4a226e8d9e4aba56d1e2eb3977b,
+      type: 2}
