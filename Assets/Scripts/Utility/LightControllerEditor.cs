@@ -1,49 +1,51 @@
-using UnityEditor;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
 
-[CustomEditor(typeof(LightController))]
-public class LightControllerEditor : Editor
-{
-    private LightController lightController;
+//public class InteractiveMuseumController : MonoBehaviour
+//{
+//    [SerializeField] private GameObject[] paintingSets; // Assign the sets of paintings in the Unity Editor
+//    private int activeSetIndex = 0;
 
-    private float intensity;
-    private Color color;
-    private float range;
-    private float spotAngle;
+//    private void Start()
+//    {
+//        // Deactivate all painting sets at start
+//        foreach (GameObject set in paintingSets)
+//        {
+//            set.SetActive(false);
+//        }
 
-    private void OnEnable()
-    {
-        lightController = (LightController)target;
-    }
+//        // Activate the first painting set
+//        paintingSets[activeSetIndex].SetActive(true);
+//    }
 
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
+//    // Call this function when button 1 is pressed
+//    public void OnButton1Press()
+//    {
+//        ChangeActivePaintingSet(0);
+//    }
 
-        EditorGUILayout.Space();
+//    // Call this function when button 2 is pressed
+//    public void OnButton2Press()
+//    {
+//        ChangeActivePaintingSet(1);
+//    }
 
-        intensity = EditorGUILayout.FloatField("Intensity", intensity);
-        if (GUILayout.Button("Set Intensity"))
-        {
-            lightController.SetLightIntensity(intensity);
-        }
+//    // Call this function when button 3 is pressed
+//    public void OnButton3Press()
+//    {
+//        ChangeActivePaintingSet(2);
+//    }
 
-        color = EditorGUILayout.ColorField("Color", color);
-        if (GUILayout.Button("Set Color"))
-        {
-            lightController.SetLightColor(color);
-        }
+//    private void ChangeActivePaintingSet(int newIndex)
+//    {
+//        if (newIndex < 0 || newIndex >= paintingSets.Length || newIndex == activeSetIndex)
+//        {
+//            return;
+//        }
 
-        range = EditorGUILayout.FloatField("Range", range);
-        if (GUILayout.Button("Set Range"))
-        {
-            lightController.SetLightRange(range);
-        }
-
-        spotAngle = EditorGUILayout.Slider("Spot Angle", spotAngle, 1f, 179f);
-        if (GUILayout.Button("Set Spot Angle"))
-        {
-            lightController.SetLightSpotAngle(spotAngle);
-        }
-    }
-}
+//        paintingSets[activeSetIndex].SetActive(false);
+//        activeSetIndex = newIndex;
+//        paintingSets[activeSetIndex].SetActive(true);
+//    }
+//}

@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 58656347}
   - component: {fileID: 58656346}
   m_Layer: 0
-  m_Name: BOXBUTTON (1)
+  m_Name: BOXBUTTON #2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1644,12 +1644,12 @@ GameObject:
   - component: {fileID: 388726752}
   - component: {fileID: 388726751}
   m_Layer: 0
-  m_Name: BOXBUTTON (2)
+  m_Name: BOXBUTTON #3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &388726750
 Transform:
   m_ObjectHideFlags: 0
@@ -2214,9 +2214,9 @@ MonoBehaviour:
   onButtonDown:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ShootLauncher
+      - m_Target: {fileID: 916529939}
+        m_TargetAssemblyTypeName: InteractiveMuseumController, Assembly-CSharp
+        m_MethodName: OnButton1Press
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3365,9 +3365,9 @@ MonoBehaviour:
   onButtonDown:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ShootLauncher
+      - m_Target: {fileID: 916529939}
+        m_TargetAssemblyTypeName: InteractiveMuseumController, Assembly-CSharp
+        m_MethodName: OnButton3Press
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3747,8 +3747,9 @@ GameObject:
   - component: {fileID: 916529936}
   - component: {fileID: 916529935}
   - component: {fileID: 916529934}
+  - component: {fileID: 916529939}
   m_Layer: 0
-  m_Name: TextBlock (3)
+  m_Name: Painting Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3899,6 +3900,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 916529932}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &916529939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916529932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2853f9311ba63141a553da9503302b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paintingSets:
+  - {fileID: 1587563388}
+  - {fileID: 1775111134}
 --- !u!1001 &939004962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4425,9 +4441,9 @@ MonoBehaviour:
   onButtonDown:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ShootLauncher
+      - m_Target: {fileID: 916529939}
+        m_TargetAssemblyTypeName: InteractiveMuseumController, Assembly-CSharp
+        m_MethodName: OnButton2Press
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7049,7 +7065,7 @@ GameObject:
   - component: {fileID: 1732438158}
   - component: {fileID: 1732438157}
   m_Layer: 0
-  m_Name: BOXBUTTON
+  m_Name: BOXBUTTON #1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
