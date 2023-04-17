@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using BNG;
 using System.Collections;
@@ -51,23 +50,21 @@ public class TutorialController : MonoBehaviour
 
     private void CheckInputs()
     {
-
         if (currentStep == 1 && InputBridge.Instance.LeftTriggerDown) //completed trigger tutorial
         {
-            triggerButtonLeft.ClearGlow();
-            gripButtonLeft.SetGlow();
-            StartCoroutine(PlayLeftGripTutorial());
+            SetButtonGlow(triggerButtonLeft, false);
+            SetButtonGlow(gripButtonLeft, true);
+            StartCoroutine(PlayTutorial(gripAudioLeft, 2));
         }
         else if (currentStep == 2 && InputBridge.Instance.LeftGripDown) //completed grip tutorial
         {
-            gripButtonLeft.ClearGlow();
-            trackpadButtonLeft.SetGlow();
-            StartCoroutine(PlayLeftTrackpadTutorial());
+            SetButtonGlow(gripButtonLeft, false);
+            SetButtonGlow(trackpadButtonLeft, true);
+            StartCoroutine(PlayTutorial(trackpadAudioLeft, 3));
         }
         else if (currentStep == 3 && InputBridge.Instance.LeftThumbstickDown) //completed trackpad tutorial
         {
-            trackpadButtonLeft.ClearGlow();
-
+            SetButtonGlow(trackpadButtonLeft, false);
         }
     }
 
@@ -77,33 +74,32 @@ public class TutorialController : MonoBehaviour
         AudioManager.Instance.PlayAudioClip(introAudio);
         float duration = introAudio.length;
         yield return new WaitForSeconds(duration);
-        StartCoroutine(PlayLeftTriggerTutorial());
+        StartCoroutine(PlayTutorial(triggerAudioLeft, 1, triggerButtonLeft));
     }
 
-    private IEnumerator PlayLeftTriggerTutorial()
+    private IEnumerator PlayTutorial(AudioClip audioClip, int nextStep, ButtonController buttonToGlow = null)
     {
-        triggerButtonLeft.SetGlow();
-        AudioManager.Instance.PlayAudioClip(triggerAudioLeft);
-        float duration = triggerAudioLeft.length;       
+        if (buttonToGlow != null)
+        {
+            SetButtonGlow(buttonToGlow, true);
+        }
+        AudioManager.Instance.PlayAudioClip(audioClip);
+        float duration = audioClip.length;
         yield return new WaitForSeconds(duration);
-        currentStep = 1;
-    }
-    private IEnumerator PlayLeftGripTutorial()
-    {
-        AudioManager.Instance.PlayAudioClip(gripAudioLeft);
-        float duration = gripAudioLeft.length;
-        yield return new WaitForSeconds(duration);
-        currentStep = 2;
+        currentStep = nextStep;
     }
 
-    private IEnumerator PlayLeftTrackpadTutorial()
+    private void SetButtonGlow(ButtonController button, bool isGlowing)
     {
-        AudioManager.Instance.PlayAudioClip(trackpadAudioLeft);
-        float duration = trackpadAudioLeft.length;
-        yield return new WaitForSeconds(duration);
-        currentStep = 3;
+        if (isGlowing)
+        {
+            button.SetGlow();
+        }
+        else
+        {
+            button.ClearGlow();
+        }
     }
-
 
     // Show particle effect on the specified button
     public void ShowParticleEffect(ButtonController button)
@@ -118,3 +114,5 @@ public class TutorialController : MonoBehaviour
         particleSystem.Play();
     }
 }
+
+
