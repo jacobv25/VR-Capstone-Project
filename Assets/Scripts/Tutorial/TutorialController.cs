@@ -52,18 +52,21 @@ public class TutorialController : MonoBehaviour
     {
         if (currentStep == 1 && InputBridge.Instance.LeftTriggerDown) //completed trigger tutorial
         {
+            ShowParticleEffect(triggerButtonLeft);
             SetButtonGlow(triggerButtonLeft, false);
             SetButtonGlow(gripButtonLeft, true);
             StartCoroutine(PlayTutorial(gripAudioLeft, 2));
         }
         else if (currentStep == 2 && InputBridge.Instance.LeftGripDown) //completed grip tutorial
         {
+            ShowParticleEffect(gripButtonLeft);
             SetButtonGlow(gripButtonLeft, false);
             SetButtonGlow(trackpadButtonLeft, true);
             StartCoroutine(PlayTutorial(trackpadAudioLeft, 3));
         }
         else if (currentStep == 3 && InputBridge.Instance.LeftThumbstickDown) //completed trackpad tutorial
         {
+            ShowParticleEffect(trackpadButtonLeft);
             SetButtonGlow(trackpadButtonLeft, false);
         }
     }
