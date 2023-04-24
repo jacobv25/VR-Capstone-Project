@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Enter Painting Room.unity
     guid: 50604a91f8205234a905f3869706659a
+  - enabled: 1
+    path: Assets/Scenes/Flower Scene.unity
+    guid: 14e7bb4ce08691344971e41976197d7d
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ab24cd1f6a617014c84aa816a63c213f,
       type: 2}

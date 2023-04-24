@@ -16,7 +16,6 @@ public class FootstepController : MonoBehaviour
     private AudioManager audioManager;
     private SurfaceType currentSurfaceType = SurfaceType.Default;
 
-    public TextMeshProUGUI debugger;
 
     [SerializeField]
     [Tooltip("Factor to adjust the overall footstep cooldown while running.")]
@@ -33,15 +32,9 @@ public class FootstepController : MonoBehaviour
 
     private void Update()
     {
-        debugger.text = "grounded=" + characterController.isGrounded;
 
         Vector2 leftThumbstickAxis = InputBridge.Instance.LeftThumbstickAxis;
         bool isMoving = (Mathf.Abs(leftThumbstickAxis.x) >= 0.2f || Mathf.Abs(leftThumbstickAxis.y) >= 0.2f);
-
-        if (isMoving)
-        {
-            debugger.text += "\nMoving!";
-        }
 
         if (characterController.isGrounded && isMoving)
         {
@@ -49,13 +42,11 @@ public class FootstepController : MonoBehaviour
 
             if (Time.time - lastFootstepTime >= footstepCooldown)
             {
-                debugger.text += "\nplaying footstep sfx!";
                 PlayFootstepSFX(currentSurfaceType);
                 lastFootstepTime = Time.time;
 
                 footstepCooldown = Mathf.Lerp(0.5f, 0.1f, maxAxisValue) * footstepCooldownFactor;
             }
-            debugger.text += "\nstopped playing!";
         }
     }
 
