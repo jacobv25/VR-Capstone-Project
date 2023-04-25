@@ -10,27 +10,37 @@ public class MyCarController : MonoBehaviour
     public float accelerationFloat;
     public float handleBreakFloat;
 
+    public SteeringWheel steeringWheel; // Add a reference to the SteeringWheel script
+
     private CarUserControl carController;
-    
-
-
-    // Update is called once per frame
 
     private void Start()
     {
         carController = GetComponent<CarUserControl>();
+
+        // Subscribe to the onValueChange event
+        if (steeringWheel != null)
+        {
+            steeringWheel.onValueChange.AddListener(CarSteering);
+        }
     }
 
+    private void OnDestroy()
+    {
+        // Unsubscribe from the onValueChange event
+        if (steeringWheel != null)
+        {
+            steeringWheel.onValueChange.RemoveListener(CarSteering);
+        }
+    }
 
     void Update()
     {
-
-
         if (intheCar == true)
         {
             accelerationFloat = InputBridge.Instance.RightTrigger + -InputBridge.Instance.LeftTrigger;
 
-            if (InputBridge.Instance.AButton) // turn true false to a float value
+            if (InputBridge.Instance.AButton)
             {
                 handleBreakFloat = 1;
             }
@@ -38,9 +48,6 @@ public class MyCarController : MonoBehaviour
             {
                 handleBreakFloat = 0;
             }
-
-
-
 
             // set variables in carusercontroller
             carController.steerCar = steerCarFloat;
@@ -59,6 +66,7 @@ public class MyCarController : MonoBehaviour
 
     public void CarSteering(float onValueChange)
     {
-        steerCarFloat = -onValueChange; // negative because the car controller uses opposite values than the steering wheel
+        Debug.Log("my car controller steering:" + onValueChange);
+        carController.steerCar = -onValueChange; // negative because the car controller uses opposite values than the steering wheel
     }
 }

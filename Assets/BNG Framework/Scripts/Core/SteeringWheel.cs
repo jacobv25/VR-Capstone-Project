@@ -107,6 +107,7 @@ namespace BNG {
 
             // Calculate rotation if being held or returning to center
             if (grab.BeingHeld) {
+                Debug.Log("being held");
                 UpdateAngleCalculations();
             }
             else if (ReturnToCenter) {
@@ -200,8 +201,10 @@ namespace BNG {
         public virtual void CallEvents() {
             // Call events
             if (targetAngle != previousTargetAngle) {
+                Debug.Log("target angle=" + targetAngle);
                 onAngleChange.Invoke(targetAngle);
             }
+            Debug.Log("scale value=" + ScaleValue);
 
             onValueChange.Invoke(ScaleValue);
         }
