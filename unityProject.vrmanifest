@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.egyptianmuseum.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "D:\\Dev_JV\\Egyptian-Museum\\Egyptian Museum\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "D:\\Dev_JV\\FINAL VR Capstone\\VR-Capstone-Project\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "Egyptian Museum [Testing]"

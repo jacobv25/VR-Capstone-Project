@@ -31,9 +31,6 @@ namespace UnityStandardAssets.Vehicles.Car
             float v = acceleration;//CrossPlatformInputManager.GetAxis("Vertical");
 #if !MOBILE_INPUT
             float handbrake = handBrakeFloat;//CrossPlatformInputManager.GetAxis("Jump");
-            Debug.Log("h:" + steerCar);
-            Debug.Log("v:" + acceleration);
-            Debug.Log("handbrake:" + handBrakeFloat);
             m_Car.Move(h, v, v, handbrake);
 #else
             m_Car.Move(h, v, v, 0f);

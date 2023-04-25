@@ -40,7 +40,7 @@ public class MyCarController : MonoBehaviour
         {
             accelerationFloat = InputBridge.Instance.RightTrigger + -InputBridge.Instance.LeftTrigger;
 
-            if (InputBridge.Instance.AButton)
+            if (InputBridge.Instance.LeftThumbstickDown)
             {
                 handleBreakFloat = 1;
             }
@@ -67,7 +67,6 @@ public class MyCarController : MonoBehaviour
 
     public void CarSteering(float onValueChange)
     {
-        Debug.Log("my car controller steering:" + onValueChange);
         carController.steerCar = -onValueChange; // negative because the car controller uses opposite values than the steering wheel
     }
 }
