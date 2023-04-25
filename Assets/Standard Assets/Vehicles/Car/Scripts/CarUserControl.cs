@@ -24,11 +24,16 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void FixedUpdate()
         {
+            
+
             // pass the input to the car!
             float h = steerCar; // CrossPlatformInputManager.GetAxis("Horizontal");
             float v = acceleration;//CrossPlatformInputManager.GetAxis("Vertical");
 #if !MOBILE_INPUT
             float handbrake = handBrakeFloat;//CrossPlatformInputManager.GetAxis("Jump");
+            Debug.Log("h:" + steerCar);
+            Debug.Log("v:" + acceleration);
+            Debug.Log("handbrake:" + handBrakeFloat);
             m_Car.Move(h, v, v, handbrake);
 #else
             m_Car.Move(h, v, v, 0f);

@@ -34,7 +34,7 @@ public class MyCarController : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (intheCar == true)
         {
@@ -50,7 +50,7 @@ public class MyCarController : MonoBehaviour
             }
 
             // set variables in carusercontroller
-            carController.steerCar = steerCarFloat;
+            //carController.steerCar = steerCarFloat;
             carController.acceleration = accelerationFloat;
             carController.handBrakeFloat = handleBreakFloat;
         }
@@ -63,6 +63,7 @@ public class MyCarController : MonoBehaviour
             carController.handBrakeFloat = 0;
         }
     }
+
 
     public void CarSteering(float onValueChange)
     {
