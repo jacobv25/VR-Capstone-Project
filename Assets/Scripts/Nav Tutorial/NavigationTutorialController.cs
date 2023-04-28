@@ -24,6 +24,8 @@ public class NavigationTutorialController : MonoBehaviour
     [SerializeField] private AudioClip snapTurn2Audio;
     [SerializeField] private AudioClip takeAMomentAudio;
     [SerializeField] private AudioClip locomotionSelectionAudio;
+    [SerializeField] private AudioClip exitAudio;
+
 
     [Header("Left Button References")]
     [SerializeField] private ButtonController trackPadLeft;
@@ -63,18 +65,30 @@ public class NavigationTutorialController : MonoBehaviour
         {
             yield return new WaitForSeconds(2f);
             AudioManager.Instance.PlayAudioClip(navigationTutorialAudio);
-            float duration = snapTurn1Audio.length;
-            yield return new WaitForSeconds(10);
-            PlayTutorial(snapTurn1Audio, 1, trackPadRight);
-            yield return new WaitForSeconds(7);
+            yield return new WaitForSeconds(11);
+            AudioManager.Instance.PlayAudioClip(snapTurn1Audio);
+            trackPadRight.SetGlow();
+            table.SetActive(true);
+            table.GetComponent<RaiseAndLowerObject>().Raise();
+            yield return new WaitForSeconds(2);
+            turnButton.SetActive(true);
+            finishButton.SetActive(true);
+            turnButton.GetComponent<RaiseAndLowerObject>().Raise();
+            finishButton.GetComponent<RaiseAndLowerObject>().Raise();
+            yield return new WaitForSeconds(5);
+
         }
-        table.SetActive(true);
-        table.GetComponent<RaiseAndLowerObject>().Raise();
-        yield return new WaitForSeconds(2);
-        turnButton.SetActive(true);
-        finishButton.SetActive(true);
-        turnButton.GetComponent<RaiseAndLowerObject>().Raise();
-        finishButton.GetComponent<RaiseAndLowerObject>().Raise();
+        else
+        {
+            table.SetActive(true);
+            table.GetComponent<RaiseAndLowerObject>().Raise();
+            yield return new WaitForSeconds(2);
+            turnButton.SetActive(true);
+            finishButton.SetActive(true);
+            turnButton.GetComponent<RaiseAndLowerObject>().Raise();
+            finishButton.GetComponent<RaiseAndLowerObject>().Raise();
+        }
+        
 
     }
 
@@ -114,6 +128,7 @@ public class NavigationTutorialController : MonoBehaviour
     {
         turnButton.GetComponent<RaiseAndLowerObject>().LowerAndDeactivate();
         finishButton.GetComponent<RaiseAndLowerObject>().LowerAndDeactivate();
+        trackPadRight.ClearGlow();
 
         yield return new WaitForSeconds(1f);
 
@@ -125,33 +140,15 @@ public class NavigationTutorialController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         smoothLocCanvas.SetActive(true);
         teleCanvas.SetActive(true);
+        trackPadLeft.SetGlow();
 
         yield return new WaitForSeconds(.5f);
 
         AudioManager.Instance.PlayAudioClip(locomotionSelectionAudio);
+    
+        yield return new WaitForSeconds(13f);
+
+        AudioManager.Instance.PlayAudioClip(exitAudio);
     }
 
-    private void PlayTutorial(AudioClip audioClip, int nextStep, ButtonController button)
-    {
-
-        SetButtonGlow(button, true);
-
-        AudioManager.Instance.StopPlayingAudio();
-
-        AudioManager.Instance.PlayAudioClip(audioClip);
-
-        currentStep = nextStep;
-    }
-
-    private void SetButtonGlow(ButtonController button, bool isGlowing)
-    {
-        if (isGlowing)
-        {
-            button.SetGlow();
-        }
-        else
-        {
-            button.ClearGlow();
-        }
-    }
 }
