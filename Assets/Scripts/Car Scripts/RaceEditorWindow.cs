@@ -34,6 +34,12 @@ public class RaceEditorWindow : EditorWindow
             {
                 SceneView.duringSceneGui -= OnSceneGUI;
             }
+
+            if (GUILayout.Button("Calculate Spline Length"))
+            {
+                float splineLength = CalculateSplineLength(_spline);
+                EditorUtility.DisplayDialog("Spline Length", $"Total spline length: {splineLength} units", "OK");
+            }
         }
 
         EditorGUILayout.EndScrollView();
@@ -64,5 +70,25 @@ public class RaceEditorWindow : EditorWindow
             GameObject anchor = _spline.AddAnchors(1)[0];
             anchor.transform.position = point;
         }
+    }
+
+    private float CalculateSplineLength(Spline spline, int samples = 1000)
+    {
+        float totalDistance = 0;
+
+        if (samples < 2) samples = 2;
+
+        Vector3 previousPoint = spline.GetPosition(0);
+
+        for (int i = 1; i <= samples; i++)
+        {
+            float t = (float)i / (samples - 1);
+            Vector3 currentPoint = spline.GetPosition(t);
+
+            totalDistance += Vector3.Distance(previousPoint, currentPoint);
+            previousPoint = currentPoint;
+        }
+
+        return totalDistance;
     }
 }
