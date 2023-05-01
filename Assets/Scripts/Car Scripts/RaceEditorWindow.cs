@@ -7,6 +7,8 @@ public class RaceEditorWindow : EditorWindow
     private Spline _spline;
     private Vector2 _scrollPos;
     private bool _anchorPlacementMode;
+    public GameObject IndicatorPrefab;
+
 
     [MenuItem("Window/Race Editor")]
     public static void ShowWindow()
@@ -21,6 +23,7 @@ public class RaceEditorWindow : EditorWindow
         _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
 
         _spline = EditorGUILayout.ObjectField("Spline Object", _spline, typeof(Spline), true) as Spline;
+        IndicatorPrefab = EditorGUILayout.ObjectField("Indicator Prefab", IndicatorPrefab, typeof(GameObject), true) as GameObject;
 
         if (_spline != null)
         {
@@ -39,6 +42,11 @@ public class RaceEditorWindow : EditorWindow
             {
                 float splineLength = CalculateSplineLength(_spline);
                 EditorUtility.DisplayDialog("Spline Length", $"Total spline length: {splineLength} units", "OK");
+            }
+
+            if (GUILayout.Button("Place Indicators"))
+            {
+                PlaceIndicators();
             }
         }
 
@@ -90,5 +98,31 @@ public class RaceEditorWindow : EditorWindow
         }
 
         return totalDistance;
+    }
+
+    private void PlaceIndicators()
+    {
+        if (_spline != null && IndicatorPrefab != null)
+        {
+            int anchorCount = _spline.Anchors.Length;
+
+            for (int i = 0; i < anchorCount; i++)
+            {
+                GameObject indicator = Instantiate(IndicatorPrefab, _spline.Anchors[i].transform.position, Quaternion.identity);
+                indicator.transform.SetParent(_spline.transform);
+
+                if (i < anchorCount - 1)
+                {
+                    Vector3 direction = (_spline.Anchors[i + 1].transform.position - _spline.Anchors[i].transform.position).normalized;
+                    indicator.transform.rotation = Quaternion.LookRotation(direction);
+                }
+                else
+                {
+                    // Make the last indicator point towards the first anchor if needed
+                    Vector3 direction = (_spline.Anchors[0].transform.position - _spline.Anchors[i].transform.position).normalized;
+                    indicator.transform.rotation = Quaternion.LookRotation(direction);
+                }
+            }
+        }
     }
 }
