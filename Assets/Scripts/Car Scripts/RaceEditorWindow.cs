@@ -8,12 +8,23 @@ public class RaceEditorWindow : EditorWindow
     private Vector2 _scrollPos;
     private bool _anchorPlacementMode;
     public GameObject IndicatorPrefab;
-
+    private GameObject CoinPrefab;
+    private int CoinFrequency = 10;
 
     [MenuItem("Window/Race Editor")]
     public static void ShowWindow()
     {
         GetWindow<RaceEditorWindow>("Race Editor");
+    }
+
+    private void OnEnable()
+    {
+        SceneView.duringSceneGui += OnSceneGUI;
+    }
+
+    private void OnDisable()
+    {
+        SceneView.duringSceneGui -= OnSceneGUI;
     }
 
     private void OnGUI()
@@ -24,6 +35,8 @@ public class RaceEditorWindow : EditorWindow
 
         _spline = EditorGUILayout.ObjectField("Spline Object", _spline, typeof(Spline), true) as Spline;
         IndicatorPrefab = EditorGUILayout.ObjectField("Indicator Prefab", IndicatorPrefab, typeof(GameObject), true) as GameObject;
+        CoinPrefab = EditorGUILayout.ObjectField("Coin Prefab", CoinPrefab, typeof(GameObject), true) as GameObject;
+        CoinFrequency = EditorGUILayout.IntField("Coin Frequency", CoinFrequency);
 
         if (_spline != null)
         {
@@ -48,6 +61,10 @@ public class RaceEditorWindow : EditorWindow
             {
                 PlaceIndicators();
             }
+            if (GUILayout.Button("Place Coins Along Spline"))
+            {
+                PlaceCoins();
+            }
         }
 
         EditorGUILayout.EndScrollView();
@@ -69,6 +86,9 @@ public class RaceEditorWindow : EditorWindow
                 e.Use();
             }
         }
+
+        // Draw coin previews
+        DrawCoinPreviews();
     }
 
     private void AddAnchorAtPoint(Vector3 point)
@@ -125,4 +145,46 @@ public class RaceEditorWindow : EditorWindow
             }
         }
     }
+
+    private void PlaceCoins()
+    {
+        if (_spline == null || CoinPrefab == null || CoinFrequency <= 0)
+        {
+            return;
+        }
+
+        float stepSize = 1f / CoinFrequency;
+
+        for (float t = 0; t <= 1; t += stepSize)
+        {
+            Vector3 coinPosition = _spline.GetPosition(t);
+            Quaternion coinRotation = Quaternion.Euler(90, 0, 0);
+
+            GameObject coin = Instantiate(CoinPrefab, coinPosition, coinRotation);
+            coin.transform.SetParent(_spline.transform);
+        }
+    }
+
+    private void DrawCoinPreviews()
+    {
+        if (_spline == null || CoinPrefab == null || CoinFrequency <= 0)
+        {
+            return;
+        }
+
+        float stepSize = 1f / CoinFrequency;
+
+        for (float t = 0; t <= 1; t += stepSize)
+        {
+            Vector3 coinPosition = _spline.GetPosition(t);
+            Quaternion coinRotation = Quaternion.identity;
+
+            // Draw the semi-transparent Gizmo sphere
+            Handles.color = new Color(1, 1, 1, 0.5f);
+            Handles.SphereHandleCap(0, coinPosition, coinRotation, 0.5f, EventType.Repaint);
+            Handles.color = Color.green;
+        }
+    }
+
+
 }
