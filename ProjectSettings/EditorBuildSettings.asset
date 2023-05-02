@@ -27,6 +27,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 03d9cdad982379a4795f3dae66be350b
   - enabled: 1
+    path: Assets/Scenes/Tutorial Scene.unity
+    guid: 2e9c28527e6f30240b14dbfbc4098436
+  - enabled: 1
+    path: Assets/Scenes/Navigation Tutorial.unity
+    guid: 67b93d712d0b3bb42b064c10babf4e9c
+  - enabled: 1
     path: Assets/Scenes/Egyptian Museum.unity
     guid: a7e27e5aca4e3f04abc3d68e8c7dbc21
   - enabled: 1

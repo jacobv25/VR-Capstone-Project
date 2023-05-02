@@ -196,7 +196,7 @@ public class TutorialController : MonoBehaviour
         AudioManager.Instance.PlayAudioClip(navigationIntroAudio);
         yield return new WaitForSeconds(4);
 
-        sceneLoader.LoadScene("NavigationTutorialScene");
+        sceneLoader.LoadScene("Navigation Tutorial");
     }
 
     private IEnumerator PlayWithItems()
