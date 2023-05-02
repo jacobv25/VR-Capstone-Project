@@ -44,7 +44,6 @@ public class CustomVRPauseMenu : MonoBehaviour
         if (InputBridge.Instance.RightTriggerDown) 
         {
             triggerPullCount++;
-            Debug.Log("trigger pull coun = " + triggerPullCount);
             triggerPullTimer = triggerPullInterval;
         }
 
@@ -69,8 +68,6 @@ public class CustomVRPauseMenu : MonoBehaviour
 
     public void DisplayPauseMenu()
     {
-        Debug.Log("displaying menu");
-
         // Activate the pause menu if it exists
         if (pauseMenu != null)
         {
@@ -78,6 +75,10 @@ public class CustomVRPauseMenu : MonoBehaviour
 
             // Calculate the position where the pause menu should be displayed
             Vector3 menuPosition = transform.position + transform.forward * distanceFromPlayer;
+
+            // Add a vertical offset to the menu position
+            float verticalOffset = 0.5f; // Change this value to your desired offset
+            menuPosition += new Vector3(0, verticalOffset, 0);
 
             // Set the position of the pause menu
             pauseMenu.transform.position = menuPosition;
