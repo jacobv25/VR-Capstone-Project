@@ -2,13 +2,22 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    public CheckpointManager checkpointManager;
+    private RaceManager raceManager;
+
+    private void Start()
+    {
+        raceManager = FindObjectOfType<RaceManager>();
+        if (raceManager == null)
+        {
+            Debug.LogError("No RaceManager found in the scene");
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Car"))
         {
-            checkpointManager.CheckpointReached(this);
+            raceManager.CheckpointReached(this);
         }
     }
 }

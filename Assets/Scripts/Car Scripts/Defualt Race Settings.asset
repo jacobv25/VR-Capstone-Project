@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 035b6a2d540810648a4d2f52a8f13ba4, type: 3}
+  m_Name: Defualt Race Settings
+  m_EditorClassIdentifier: 
+  IndicatorPrefab: {fileID: 8435877358589927646, guid: 0d7ae6042d2dae441b9f7357762e953f,
+    type: 3}
+  CoinPrefab: {fileID: 773587593602460498, guid: eb4b2dba8ba22334aa2d46a0ee80ce3f,
+    type: 3}
+  CheckpointPrefab: {fileID: 1103614765114154655, guid: d9251642c81cf4f419b93d1b6f310633,
+    type: 3}
