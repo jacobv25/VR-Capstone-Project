@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using UnityEngine;
 using BNG;
@@ -6,34 +7,38 @@ public class PaintingSwitchRemote : MonoBehaviour
 {
     public List<GameObject> paintingSets;
     public List<GameObject> buttonSets;
-    public Button switchButton;
-
-    private int currentSet;
+    public List<Button> switchButtons;
 
     private void Start()
     {
-        currentSet = 0;
-        UpdateSets();
-
-        switchButton.onButtonDown.AddListener(SwitchPaintings);
+        InitializeButtons();
+        UpdateSetsAndButtons(0);
     }
 
-    private void SwitchPaintings()
+    private void InitializeButtons()
     {
-        currentSet = (currentSet + 1) % paintingSets.Count;
-        UpdateSets();
+        for (int i = 0; i < switchButtons.Count; i++)
+        {
+            int index = i;
+            switchButtons[i].onButtonDown.AddListener(() => SwitchPaintings(index));
+        }
     }
 
-    private void UpdateSets()
+    private void SwitchPaintings(int index)
+    {
+        UpdateSetsAndButtons(index);
+    }
+
+    private void UpdateSetsAndButtons(int activeSet)
     {
         for (int i = 0; i < paintingSets.Count; i++)
         {
-            paintingSets[i].SetActive(i == currentSet);
+            paintingSets[i].SetActive(i == activeSet);
         }
 
         for (int i = 0; i < buttonSets.Count; i++)
         {
-            buttonSets[i].SetActive(i == currentSet);
+            buttonSets[i].SetActive(i == activeSet);
         }
     }
 }
