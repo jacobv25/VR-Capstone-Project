@@ -107,17 +107,35 @@ public class RaceManager : MonoBehaviour
             float finalRaceTime = raceTime;
             finalTimeText.text = "Final Time: " + timerText.text;
             UpdateBestTimes(finalRaceTime);
-            carExit.ExitCar();
-            StartCoroutine(GoBackToGarage());
+            GoBackToGarage();
             
         }
     }
 
-    private IEnumerator GoBackToGarage()
+    private IEnumerator ExitCarAndLoadGarage()
     {
+        carExit.ExitCar();
+
         yield return new WaitForSeconds(1.0f);
         //go back to garage scene
         sceneLoader.LoadScene("Garage Scene 1");
+    }
+    public void GoBackToGarage()
+    {
+        StartCoroutine(ExitCarAndLoadGarage());
+    }
+    public void GoBackToMainMenu()
+    {
+        StartCoroutine(ExitCarAndLoadMainMenu());
+    }
+
+    private IEnumerator ExitCarAndLoadMainMenu()
+    {
+        carExit.ExitCar();
+
+        yield return new WaitForSeconds(1.0f);
+        //go back to garage scene
+        sceneLoader.LoadScene("Main Menu");
     }
 
     private void UpdateBestTimes(float raceTime)

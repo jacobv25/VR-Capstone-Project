@@ -17,12 +17,16 @@ public class CustomVRPauseMenu : MonoBehaviour
     [SerializeField] private GameObject pauseMenu; // Assign your pause menu prefab in the Unity Inspector
     [SerializeField] private float distanceFromPlayer = 5.0f; // Set the distance from the player where the pause menu should appear
 
+    [Header("Normal Pause Menu")]
     [SerializeField] private GameObject snapButton;
     [SerializeField] private GameObject noneButton;
     [SerializeField] private GameObject smoothButton;
     [SerializeField] private GameObject teleportButton;
 
-    // Variables for detecting the right trigger pull
+    [Header("For Race Car Pause Menu")]
+    [SerializeField] private bool racing = false;
+
+    [Header("Detecting Trigger Pull")]
     public int triggerPullCount = 0;
     public float triggerPullInterval = 0.3f; // The time window for 5 trigger pulls
     private float triggerPullTimer = 0.0f;
@@ -61,8 +65,30 @@ public class CustomVRPauseMenu : MonoBehaviour
         // Check if the right trigger has been pulled 5 times in a row quickly (within 1.5 seconds)
         if (triggerPullCount >= 5)
         {
-            DisplayPauseMenu();
+            if(racing)
+            {
+                DisplayRaceCarPauseMenu();
+            }
+            else 
+            {
+                DisplayPauseMenu();
+            }
             triggerPullCount = 0; // Reset the counter
+        }
+    }
+
+    public void DisplayRaceCarPauseMenu()
+    {
+        if(pauseMenu != null)
+        {
+            pauseMenu.SetActive(true);
+            // Calculate the position where the pause menu should be displayed
+            Vector3 menuPosition = transform.position + transform.forward * distanceFromPlayer;
+            // Add a vertical offset to the menu position
+            float verticalOffset = 0.5f; // Change this value to your desired offset
+            menuPosition += new Vector3(0, verticalOffset, 0);
+            // Set the position of the pause menu
+            pauseMenu.transform.position = menuPosition;
         }
     }
 
