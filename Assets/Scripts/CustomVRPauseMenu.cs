@@ -2,6 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using BNG;
 using UnityEngine.EventSystems;
+using System;
 
 public class CustomVRPauseMenu : MonoBehaviour
 {
@@ -23,8 +24,8 @@ public class CustomVRPauseMenu : MonoBehaviour
     [SerializeField] private GameObject smoothButton;
     [SerializeField] private GameObject teleportButton;
 
-    [Header("For Race Car Pause Menu")]
-    [SerializeField] private bool racing = false;
+    [Header("For Special Scenes (Racing, Flower, etc)")]
+    [SerializeField] private bool useSpecialMenu = false;
 
     [Header("Detecting Trigger Pull")]
     public int triggerPullCount = 0;
@@ -65,9 +66,9 @@ public class CustomVRPauseMenu : MonoBehaviour
         // Check if the right trigger has been pulled 5 times in a row quickly (within 1.5 seconds)
         if (triggerPullCount >= 5)
         {
-            if(racing)
+            if(useSpecialMenu)
             {
-                DisplayRaceCarPauseMenu();
+                DisplaySpecialPauseMenu();
             }
             else 
             {
@@ -77,7 +78,7 @@ public class CustomVRPauseMenu : MonoBehaviour
         }
     }
 
-    public void DisplayRaceCarPauseMenu()
+    public void DisplaySpecialPauseMenu()
     {
         if(pauseMenu != null)
         {
