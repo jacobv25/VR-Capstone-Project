@@ -15,7 +15,7 @@ public class FootstepController : MonoBehaviour
     private CharacterController characterController;
     private AudioManager audioManager;
     private SurfaceType currentSurfaceType = SurfaceType.Default;
-
+    private LocomotionManager locomotionManager;
 
     [SerializeField]
     [Tooltip("Factor to adjust the overall footstep cooldown while running.")]
@@ -27,6 +27,7 @@ public class FootstepController : MonoBehaviour
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
+        locomotionManager = GetComponent<LocomotionManager>();
         audioManager = AudioManager.Instance;
     }
 
@@ -36,7 +37,7 @@ public class FootstepController : MonoBehaviour
         Vector2 leftThumbstickAxis = InputBridge.Instance.LeftThumbstickAxis;
         bool isMoving = (Mathf.Abs(leftThumbstickAxis.x) >= 0.2f || Mathf.Abs(leftThumbstickAxis.y) >= 0.2f);
 
-        if (characterController.isGrounded && isMoving)
+        if (characterController.isGrounded && isMoving && locomotionManager.SelectedLocomotion == LocomotionType.SmoothLocomotion)
         {
             float maxAxisValue = Mathf.Max(Mathf.Abs(leftThumbstickAxis.x), Mathf.Abs(leftThumbstickAxis.y));
 
