@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using BNG;
+using System.Collections;
 
 public class RaceManager : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class RaceManager : MonoBehaviour
     [Header("Races")]
     public GameObject[] races;
 
+    public CarExit carExit;
 
     private int currentLap;
     private float raceTime;
@@ -20,9 +23,12 @@ public class RaceManager : MonoBehaviour
     private GameObject activeRace;
     private float[] bestTimes;
     private int selectedRaceIndex;
+    private SceneLoader sceneLoader;
 
     private void Start()
     {
+        sceneLoader = GetComponent<SceneLoader>();
+
         selectedRaceIndex = PlayerPrefs.GetInt("SelectedRaceIndex", 0); // Default to the first race if no index is found
 
         bestTimes = new float[RaceSelectionScreen.NUM_BEST_TIMES];
@@ -47,16 +53,14 @@ public class RaceManager : MonoBehaviour
                 checkpoints.Add(checkpoint);
             }
         }
-        checkpoints[currentCheckpointIndex].GetComponent<Renderer>().material.color = new Color(0f, 1f, 0f, 0.5f);
+        MakeCheckPointVisible(checkpoints[currentCheckpointIndex]);
         UpdateLapCountText();
     }
 
 
     private void ActivateSelectedRace()
     {
-
-        Debug.Log("Races Length = " + races.Length);
-        Debug.Log("SelectedRaceIndex: " + selectedRaceIndex);
+        Debug.Log("race index = " + selectedRaceIndex);
         if (selectedRaceIndex < races.Length)
         {
             activeRace = races[selectedRaceIndex];
@@ -103,7 +107,17 @@ public class RaceManager : MonoBehaviour
             float finalRaceTime = raceTime;
             finalTimeText.text = "Final Time: " + timerText.text;
             UpdateBestTimes(finalRaceTime);
+            carExit.ExitCar();
+            StartCoroutine(GoBackToGarage());
+            
         }
+    }
+
+    private IEnumerator GoBackToGarage()
+    {
+        yield return new WaitForSeconds(1.0f);
+        //go back to garage scene
+        sceneLoader.LoadScene("Garage Scene 1");
     }
 
     private void UpdateBestTimes(float raceTime)
@@ -154,24 +168,21 @@ public class RaceManager : MonoBehaviour
                 currentCheckpointIndex = 0;
                 CompleteLap();
             }
-            // Change current checkpoint's color to semi-transparent green
-            checkpoints[currentCheckpointIndex].GetComponent<Renderer>().material.color = new Color(0f, 1f, 0f, 0.5f);
-            // Change previous checkpoint color to semi-transparent red
-            checkpoints[checkpointIndex].GetComponent<Renderer>().material.color = new Color(1f, 0f, 0f, 0.5f);
+            MakeCheckPointVisible(checkpoints[currentCheckpointIndex]);
+            MakeCheckpointInactive(checkpoints[checkpointIndex]);
         }
     }
 
-    // Set checkpoint color to semi-transparent red
-    public void ResetCheckpoint(Checkpoint checkpoint)
+    public void MakeCheckpointInactive(Checkpoint checkpoint)
     {
         int checkpointIndex = checkpoints.IndexOf(checkpoint);
-        checkpoints[checkpointIndex].GetComponent<Renderer>().material.color = new Color(1f, 0f, 0f, 0.5f);
+        checkpoints[checkpointIndex].gameObject.SetActive(false);
     }
 
-    // Set checkpoint color to semi-transparent green
-    public void SetCheckpoint(Checkpoint checkpoint)
+    public void MakeCheckPointVisible(Checkpoint checkpoint)
     {
         int checkpointIndex = checkpoints.IndexOf(checkpoint);
+        checkpoints[checkpointIndex].gameObject.SetActive(true);
         checkpoints[checkpointIndex].GetComponent<Renderer>().material.color = new Color(0f, 1f, 0f, 0.5f);
     }
 }

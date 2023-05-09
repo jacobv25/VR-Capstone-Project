@@ -29,11 +29,8 @@ public class CarExit : MonoBehaviour
     }
 
 
-    void Update()
+    public void ExitCar()
     {
-
-        if (playerController.transform.position.y < -75f && intheCar == true || intheCar == true && InputBridge.Instance.LeftThumbstickDown)
-        {
             playerController.transform.position = exitDestination.transform.position; //transport player out of the car
 
             playerController.GetComponent<PlayerGravity>().enabled = true; //enable gravity
@@ -66,7 +63,5 @@ public class CarExit : MonoBehaviour
             intheCar = false;
 
             enterCube.SetActive(true);
-
-        }
     }
 }

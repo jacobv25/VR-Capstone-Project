@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using BNG;
 using TMPro;
@@ -7,23 +5,38 @@ using System.Text;
 
 public class RaceSelectionScreen : MonoBehaviour
 {
-    public TextMeshProUGUI bestTimeText;
-
+    public GameObject AreYouSureScreen;
+    public GameObject SelectionButtons;
+    private TextMeshProUGUI bestTimeText;
     private SceneLoader sceneLoader;
     private float bestTime;
     public const int NUM_BEST_TIMES = 10;
-    private float[] bestTimes;
-
+    private float[] bestTimes = new float[NUM_BEST_TIMES];
+    private const int NUM_RACES = 2;
 
     private void Start() 
     {
+
+        bestTimeText = GameObject.Find("Highscore Text (TMP)").GetComponent<TextMeshProUGUI>();
+        if(bestTimeText == null)
+        {
+            Debug.LogError("Cannot find Highscore Text (TMP) in scene");
+        }
         sceneLoader = GetComponent<SceneLoader>();
         
-        bestTimes = new float[RaceSelectionScreen.NUM_BEST_TIMES];
-        for (int i = 0; i < RaceSelectionScreen.NUM_BEST_TIMES; i++)
+
+        UpdateBestTimesText();
+    }
+
+    private void LoadBestTimesForSelectedRace()
+    {
+        int selectedRace = PlayerPrefs.GetInt("SelectedRaceIndex", 0);
+
+        for (int i = 0; i < NUM_BEST_TIMES; i++)
         {
             // Load the best times from PlayerPrefs (default to a large value if no best time is found)
-            bestTimes[i] = PlayerPrefs.GetFloat("BestTime_" + i, Mathf.Infinity);
+            bestTimes[i] = PlayerPrefs.GetFloat("BestTime_" + selectedRace + "_" + i, Mathf.Infinity);
+            Debug.Log("BestTime_" + selectedRace + "_" + i + "=" + bestTimes[i]);
         }
     }
 
@@ -31,8 +44,14 @@ public class RaceSelectionScreen : MonoBehaviour
     {
         PlayerPrefs.SetInt("SelectedRaceIndex", raceIndex);
         PlayerPrefs.Save();
+        LoadBestTimesForSelectedRace();
+        UpdateBestTimesText();
+        AreYouSureScreen.SetActive(true);
+        SelectionButtons.SetActive(false);
+    }
 
-        //Load Driving Scene
+    public void GoToDriveScene()
+    {
         sceneLoader.LoadScene("Driving City");
     }
 

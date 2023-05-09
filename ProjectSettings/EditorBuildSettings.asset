@@ -47,6 +47,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Snowy Mountain Scene.unity
     guid: 6d2069cd42165a9469cc54a206165bdb
+  - enabled: 1
+    path: Assets/Scenes/Garage Scene 1.unity
+    guid: 69d219b4f5f55a440ab64135b5d1dfd3
+  - enabled: 1
+    path: Assets/Scenes/Driving City.unity
+    guid: 549d6991098152442b1e9660ff507a3e
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ab24cd1f6a617014c84aa816a63c213f,
       type: 2}

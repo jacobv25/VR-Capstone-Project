@@ -10,22 +10,17 @@ public class CarEnter : MonoBehaviour
     public GameObject carDestination; // the place the player goes in the car
     public GameObject rightHandModel;
     public GameObject leftHandModel;
-    public GameObject enterText;
 
     Quaternion seatRotation; // rotation of player once in the car
     Vector3 seatPosition; //  position of player in the car
 
     public float carPlayerHeight = -0.35f;
 
-    public bool playerIsInTheCube;
 
-    public void Update()
-    {
-        if (playerIsInTheCube == true && InputBridge.Instance.RightTriggerDown)
-        {
+    public void Start()
+    { 
             seatRotation = carDestination.transform.rotation;
             seatPosition = carDestination.transform.position;
-
 
             playerController.transform.position = seatPosition; //  set position of player
             playerController.transform.rotation = seatRotation; //  set rotation of the player
@@ -58,32 +53,6 @@ public class CarEnter : MonoBehaviour
 
             vehicle.GetComponent<MyCarController>().intheCar = true;
 
-            playerIsInTheCube = false;
-
-            enterText.SetActive(false); // disable enter text
-
             gameObject.SetActive(false); // disable enter cube
-
-
-        }
-
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            playerIsInTheCube = true;
-            enterText.SetActive(true);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            playerIsInTheCube = false;
-            enterText.SetActive(false);
-        }
     }
 }
